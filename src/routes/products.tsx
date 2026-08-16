@@ -1,7 +1,22 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
+import { ProductCard } from "@/components/product-card";
+import {
+  STOREFRONT_QUERY,
+  storefrontApiRequest,
+  type ShopifyProduct,
+} from "@/lib/shopify";
+
+const productsQueryOptions = queryOptions({
+  queryKey: ["shopify-products", "all"],
+  queryFn: async () => {
+    const data = await storefrontApiRequest(STOREFRONT_QUERY, { first: 50 });
+    return (data?.data?.products?.edges as ShopifyProduct[]) || [];
+  },
+});
 
 export const Route = createFileRoute("/products")({
-  component: ProductsPage,
   head: () => ({
     meta: [
       { title: "Shop — Dreamy Crochet" },
@@ -20,9 +35,15 @@ export const Route = createFileRoute("/products")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
+  loader: async ({ context }) => {
+    await context.queryClient.ensureQueryData(productsQueryOptions);
+  },
+  component: ProductsPage,
 });
 
 function ProductsPage() {
+  const { data: products } = useSuspenseQuery(productsQueryOptions);
+
   return (
     <main className="min-h-screen bg-background">
       <section className="mx-auto max-w-7xl px-6 py-24">
@@ -35,12 +56,20 @@ function ProductsPage() {
           </h1>
         </div>
 
-        <div className="mt-16">
-          <p className="text-center text-muted-foreground">
-            No products found yet. Add your first crochet product to the Shopify store
-            to see it here.
-          </p>
-        </div>
+        {products.length === 0 ? (
+          <div className="mt-16 rounded-[2rem] bg-accent/30 py-24 text-center ring-1 ring-black/5">
+            <p className="text-muted-foreground">
+              No products found yet. Add your first crochet product to the
+              Shopify store to see it here.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <ProductCard key={product.node.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

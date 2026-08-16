@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import aboutImage from "@/assets/about-studio.jpg";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -42,7 +43,16 @@ function AboutPage() {
 
         <div className="mt-24 grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="relative">
-            <div className="aspect-[4/5] w-full rounded-[2rem] bg-accent object-cover ring-1 ring-black/5" />
+            <div className="aspect-[4/5] w-full overflow-hidden rounded-[2rem] ring-1 ring-black/5">
+              <img
+                src={aboutImage}
+                alt="Dreamy Crochet studio with yarn and crochet work"
+                width={1024}
+                height={1280}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+            </div>
           </div>
           <div className="space-y-8">
             <h2 className="font-display text-3xl italic text-foreground">
