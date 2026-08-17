@@ -26,7 +26,6 @@ export function ProductCard({ product }: ProductCardProps) {
       price: variant.price,
       quantity: 1,
       selectedOptions: variant.selectedOptions,
-      lineId: null,
     });
   };
 

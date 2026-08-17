@@ -87,7 +87,6 @@ function ProductDetailPage() {
       price: selectedVariant.price,
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions,
-      lineId: null,
     });
   };
 

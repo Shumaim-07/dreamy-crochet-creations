@@ -90,7 +90,7 @@ function Index() {
                 width={1024}
                 height={1280}
                 className="h-full w-full object-cover"
-                priority="true"
+
               />
             </div>
           </div>
