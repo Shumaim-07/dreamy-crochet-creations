@@ -87,7 +87,6 @@ function ProductDetailPage() {
       price: selectedVariant.price,
       quantity: 1,
       selectedOptions: selectedVariant.selectedOptions,
-      lineId: null,
     });
   };
 
@@ -124,7 +123,7 @@ function ProductDetailPage() {
 
           <div className="flex flex-col justify-center">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-primary">
-              {product.productType || "Handmade"}
+              Handmade
             </span>
             <h1 className="mt-4 font-display text-4xl tracking-tight text-foreground md:text-5xl">
               {product.title}
@@ -137,7 +136,7 @@ function ProductDetailPage() {
             </p>
 
             {product.options.length > 1 ||
-              (product.options.length === 1 && product.options[0].name !== "Title") ? (
+              (product.options.length === 1 && product.options[0]?.name !== "Title") ? (
               <div className="mt-8 space-y-4">
                 {product.options.map((option) => (
                   <div key={option.name}>
