@@ -123,7 +123,7 @@ function ProductDetailPage() {
 
           <div className="flex flex-col justify-center">
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.3em] text-primary">
-              {product.productType || "Handmade"}
+              Handmade
             </span>
             <h1 className="mt-4 font-display text-4xl tracking-tight text-foreground md:text-5xl">
               {product.title}
