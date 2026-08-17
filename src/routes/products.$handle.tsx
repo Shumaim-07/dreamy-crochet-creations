@@ -136,7 +136,7 @@ function ProductDetailPage() {
             </p>
 
             {product.options.length > 1 ||
-              (product.options.length === 1 && product.options[0].name !== "Title") ? (
+              (product.options.length === 1 && product.options[0]?.name !== "Title") ? (
               <div className="mt-8 space-y-4">
                 {product.options.map((option) => (
                   <div key={option.name}>
